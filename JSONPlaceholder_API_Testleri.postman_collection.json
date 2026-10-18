@@ -1,0 +1,1836 @@
+{
+  "info": {
+    "_postman_id": "457b5656-ae57-42f0-ba7d-7b2b83bea635",
+    "name": "JSONPlaceholder_API_Testleri",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "42359685"
+  },
+  "item": [
+    {
+      "name": "TS-01_KullaniciListesiniGetirme",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Durum kodu 200 olmali\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Yanit 10 kullanici iceren bir liste olmali\", function () {\r\n    const kullanicilar = pm.response.json();\r\n\r\n    pm.expect(kullanicilar).to.be.an(\"array\");\r\n    pm.expect(kullanicilar).to.have.lengthOf(10);\r\n});\r\n\r\npm.test(\"Kullanici alanlari ve veri tipleri dogru olmali\", function () {\r\n    const kullanicilar = pm.response.json();\r\n    pm.expect(kullanicilar).to.be.an(\"array\").that.is.not.empty;\r\n\r\n    kullanicilar.forEach(function (kullanici) {\r\n        pm.expect(kullanici.id).to.be.a(\"number\");\r\n        pm.expect(kullanici.name).to.be.a(\"string\").and.not.empty;\r\n        pm.expect(kullanici.username).to.be.a(\"string\").and.not.empty;\r\n        pm.expect(kullanici.email).to.be.a(\"string\").and.not.empty;\r\n    });\r\n});\r\n\r\npm.test(\"Kullanici ID degerleri benzersiz olmali\", function () {\r\n    const kullanicilar = pm.response.json();\r\n    pm.expect(kullanicilar).to.be.an(\"array\").that.is.not.empty;\r\n\r\n    const idler = kullanicilar.map(function (kullanici) {\r\n        return kullanici.id;\r\n    });\r\n\r\n    pm.expect(new Set(idler).size).to.eql(idler.length);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/users",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "users"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "TS-01_KullaniciListesiniGetirme",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/users",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": ":status",
+              "value": "200"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 17 Oct 2026 19:15:49 GMT"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "access-control-allow-credentials",
+              "value": "true"
+            },
+            {
+              "key": "cache-control",
+              "value": "max-age=43200"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"160d-1eMSsxeJRfnVLRBmYJSbCiJZ1qQ\""
+            },
+            {
+              "key": "expires",
+              "value": "-1"
+            },
+            {
+              "key": "pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "vary",
+              "value": "Origin, Accept-Encoding"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "x-ratelimit-limit",
+              "value": "3600000"
+            },
+            {
+              "key": "x-ratelimit-remaining",
+              "value": "3599992"
+            },
+            {
+              "key": "x-ratelimit-reset",
+              "value": "1790812826"
+            },
+            {
+              "key": "age",
+              "value": "11691"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "HIT"
+            },
+            {
+              "key": "nel",
+              "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            },
+            {
+              "key": "report-to",
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2BjfOH4Xp8Ci0984pFJKV119XFROtE7oQnvp3pkKlAR4irA06qTHsK6nRenk%2B4Zez0qgqigKP5sknaVWyq%2BgLNmzpUDBGVY1D2xUtaoIie9qFLQB9gqNl%2B3jhsxP1nUBw9bDM6rpWxwMc4cxB0%2Bmy\"}]}"
+            },
+            {
+              "key": "server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "cf-ray",
+              "value": "a4c1a257de4765a2-FRA"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n  {\n    \"id\": 1,\n    \"name\": \"Leanne Graham\",\n    \"username\": \"Bret\",\n    \"email\": \"Sincere@april.biz\",\n    \"address\": {\n      \"street\": \"Kulas Light\",\n      \"suite\": \"Apt. 556\",\n      \"city\": \"Gwenborough\",\n      \"zipcode\": \"92998-3874\",\n      \"geo\": {\n        \"lat\": \"-37.3159\",\n        \"lng\": \"81.1496\"\n      }\n    },\n    \"phone\": \"1-770-736-8031 x56442\",\n    \"website\": \"hildegard.org\",\n    \"company\": {\n      \"name\": \"Romaguera-Crona\",\n      \"catchPhrase\": \"Multi-layered client-server neural-net\",\n      \"bs\": \"harness real-time e-markets\"\n    }\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Ervin Howell\",\n    \"username\": \"Antonette\",\n    \"email\": \"Shanna@melissa.tv\",\n    \"address\": {\n      \"street\": \"Victor Plains\",\n      \"suite\": \"Suite 879\",\n      \"city\": \"Wisokyburgh\",\n      \"zipcode\": \"90566-7771\",\n      \"geo\": {\n        \"lat\": \"-43.9509\",\n        \"lng\": \"-34.4618\"\n      }\n    },\n    \"phone\": \"010-692-6593 x09125\",\n    \"website\": \"anastasia.net\",\n    \"company\": {\n      \"name\": \"Deckow-Crist\",\n      \"catchPhrase\": \"Proactive didactic contingency\",\n      \"bs\": \"synergize scalable supply-chains\"\n    }\n  },\n  {\n    \"id\": 3,\n    \"name\": \"Clementine Bauch\",\n    \"username\": \"Samantha\",\n    \"email\": \"Nathan@yesenia.net\",\n    \"address\": {\n      \"street\": \"Douglas Extension\",\n      \"suite\": \"Suite 847\",\n      \"city\": \"McKenziehaven\",\n      \"zipcode\": \"59590-4157\",\n      \"geo\": {\n        \"lat\": \"-68.6102\",\n        \"lng\": \"-47.0653\"\n      }\n    },\n    \"phone\": \"1-463-123-4447\",\n    \"website\": \"ramiro.info\",\n    \"company\": {\n      \"name\": \"Romaguera-Jacobson\",\n      \"catchPhrase\": \"Face to face bifurcated interface\",\n      \"bs\": \"e-enable strategic applications\"\n    }\n  },\n  {\n    \"id\": 4,\n    \"name\": \"Patricia Lebsack\",\n    \"username\": \"Karianne\",\n    \"email\": \"Julianne.OConner@kory.org\",\n    \"address\": {\n      \"street\": \"Hoeger Mall\",\n      \"suite\": \"Apt. 692\",\n      \"city\": \"South Elvis\",\n      \"zipcode\": \"53919-4257\",\n      \"geo\": {\n        \"lat\": \"29.4572\",\n        \"lng\": \"-164.2990\"\n      }\n    },\n    \"phone\": \"493-170-9623 x156\",\n    \"website\": \"kale.biz\",\n    \"company\": {\n      \"name\": \"Robel-Corkery\",\n      \"catchPhrase\": \"Multi-tiered zero tolerance productivity\",\n      \"bs\": \"transition cutting-edge web services\"\n    }\n  },\n  {\n    \"id\": 5,\n    \"name\": \"Chelsey Dietrich\",\n    \"username\": \"Kamren\",\n    \"email\": \"Lucio_Hettinger@annie.ca\",\n    \"address\": {\n      \"street\": \"Skiles Walks\",\n      \"suite\": \"Suite 351\",\n      \"city\": \"Roscoeview\",\n      \"zipcode\": \"33263\",\n      \"geo\": {\n        \"lat\": \"-31.8129\",\n        \"lng\": \"62.5342\"\n      }\n    },\n    \"phone\": \"(254)954-1289\",\n    \"website\": \"demarco.info\",\n    \"company\": {\n      \"name\": \"Keebler LLC\",\n      \"catchPhrase\": \"User-centric fault-tolerant solution\",\n      \"bs\": \"revolutionize end-to-end systems\"\n    }\n  },\n  {\n    \"id\": 6,\n    \"name\": \"Mrs. Dennis Schulist\",\n    \"username\": \"Leopoldo_Corkery\",\n    \"email\": \"Karley_Dach@jasper.info\",\n    \"address\": {\n      \"street\": \"Norberto Crossing\",\n      \"suite\": \"Apt. 950\",\n      \"city\": \"South Christy\",\n      \"zipcode\": \"23505-1337\",\n      \"geo\": {\n        \"lat\": \"-71.4197\",\n        \"lng\": \"71.7478\"\n      }\n    },\n    \"phone\": \"1-477-935-8478 x6430\",\n    \"website\": \"ola.org\",\n    \"company\": {\n      \"name\": \"Considine-Lockman\",\n      \"catchPhrase\": \"Synchronised bottom-line interface\",\n      \"bs\": \"e-enable innovative applications\"\n    }\n  },\n  {\n    \"id\": 7,\n    \"name\": \"Kurtis Weissnat\",\n    \"username\": \"Elwyn.Skiles\",\n    \"email\": \"Telly.Hoeger@billy.biz\",\n    \"address\": {\n      \"street\": \"Rex Trail\",\n      \"suite\": \"Suite 280\",\n      \"city\": \"Howemouth\",\n      \"zipcode\": \"58804-1099\",\n      \"geo\": {\n        \"lat\": \"24.8918\",\n        \"lng\": \"21.8984\"\n      }\n    },\n    \"phone\": \"210.067.6132\",\n    \"website\": \"elvis.io\",\n    \"company\": {\n      \"name\": \"Johns Group\",\n      \"catchPhrase\": \"Configurable multimedia task-force\",\n      \"bs\": \"generate enterprise e-tailers\"\n    }\n  },\n  {\n    \"id\": 8,\n    \"name\": \"Nicholas Runolfsdottir V\",\n    \"username\": \"Maxime_Nienow\",\n    \"email\": \"Sherwood@rosamond.me\",\n    \"address\": {\n      \"street\": \"Ellsworth Summit\",\n      \"suite\": \"Suite 729\",\n      \"city\": \"Aliyaview\",\n      \"zipcode\": \"45169\",\n      \"geo\": {\n        \"lat\": \"-14.3990\",\n        \"lng\": \"-120.7677\"\n      }\n    },\n    \"phone\": \"586.493.6943 x140\",\n    \"website\": \"jacynthe.com\",\n    \"company\": {\n      \"name\": \"Abernathy Group\",\n      \"catchPhrase\": \"Implemented secondary concept\",\n      \"bs\": \"e-enable extensible e-tailers\"\n    }\n  },\n  {\n    \"id\": 9,\n    \"name\": \"Glenna Reichert\",\n    \"username\": \"Delphine\",\n    \"email\": \"Chaim_McDermott@dana.io\",\n    \"address\": {\n      \"street\": \"Dayna Park\",\n      \"suite\": \"Suite 449\",\n      \"city\": \"Bartholomebury\",\n      \"zipcode\": \"76495-3109\",\n      \"geo\": {\n        \"lat\": \"24.6463\",\n        \"lng\": \"-168.8889\"\n      }\n    },\n    \"phone\": \"(775)976-6794 x41206\",\n    \"website\": \"conrad.com\",\n    \"company\": {\n      \"name\": \"Yost and Sons\",\n      \"catchPhrase\": \"Switchable contextually-based project\",\n      \"bs\": \"aggregate real-time technologies\"\n    }\n  },\n  {\n    \"id\": 10,\n    \"name\": \"Clementina DuBuque\",\n    \"username\": \"Moriah.Stanton\",\n    \"email\": \"Rey.Padberg@karina.biz\",\n    \"address\": {\n      \"street\": \"Kattie Turnpike\",\n      \"suite\": \"Suite 198\",\n      \"city\": \"Lebsackbury\",\n      \"zipcode\": \"31428-2261\",\n      \"geo\": {\n        \"lat\": \"-38.2386\",\n        \"lng\": \"57.2232\"\n      }\n    },\n    \"phone\": \"024-648-3804\",\n    \"website\": \"ambrose.net\",\n    \"company\": {\n      \"name\": \"Hoeger LLC\",\n      \"catchPhrase\": \"Centralized empowering task-force\",\n      \"bs\": \"target end-to-end models\"\n    }\n  }\n]"
+        }
+      ]
+    },
+    {
+      "name": "TS-02_KullaniciIdIleGetirme",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Durum kodu 200 olmali\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Yanit tek bir kullanici nesnesi olmali\", function () {\r\n    pm.expect(pm.response.json()).to.be.an(\"object\");\r\n});\r\n\r\npm.test(\"Istenen kullanici donmeli\", function () {\r\n    const kullanici = pm.response.json();\r\n\r\n    pm.expect(kullanici.id).to.eql(1);\r\n    pm.expect(kullanici.name).to.eql(\"Leanne Graham\");\r\n});\r\n\r\npm.test(\"Temel alanlarin veri tipleri dogru olmali\", function () {\r\n    const kullanici = pm.response.json();\r\n\r\n    pm.expect(kullanici.id).to.be.a(\"number\");\r\n    pm.expect(kullanici.name).to.be.a(\"string\").and.not.empty;\r\n    pm.expect(kullanici.username).to.be.a(\"string\").and.not.empty;\r\n    pm.expect(kullanici.email).to.be.a(\"string\").and.not.empty;\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/users/1",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "users",
+            "1"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "TS-02_KullaniciIdIleGetirme",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/users/1",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "users",
+                "1"
+              ]
+            }
+          },
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": ":status",
+              "value": "200"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 17 Oct 2026 19:17:40 GMT"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "access-control-allow-credentials",
+              "value": "true"
+            },
+            {
+              "key": "cache-control",
+              "value": "max-age=43200"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"1fd-+2Y3G3w049iSZtw5t1mzSnunngE\""
+            },
+            {
+              "key": "expires",
+              "value": "-1"
+            },
+            {
+              "key": "pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "vary",
+              "value": "Origin, Accept-Encoding"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "x-ratelimit-limit",
+              "value": "3600000"
+            },
+            {
+              "key": "x-ratelimit-remaining",
+              "value": "3599999"
+            },
+            {
+              "key": "x-ratelimit-reset",
+              "value": "1790812826"
+            },
+            {
+              "key": "age",
+              "value": "14441"
+            },
+            {
+              "key": "report-to",
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=1Q69P%2FAIdGvxGBP%2BFTmehKIDjPYHSpPQOu18IfYLWnnFGvFwcGgQ59TGYLlABS124JwuueEcjEyAq%2F2mNawBveA6kQBAPbdxbkxdaf3QEt1V05zml4Pv45M3sbVDiEhMKlhG0SUtdXkocD6E2cSvP4vZTS2l1huGorq4\"}]}"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "HIT"
+            },
+            {
+              "key": "nel",
+              "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            },
+            {
+              "key": "content-encoding",
+              "value": "br"
+            },
+            {
+              "key": "server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "cf-ray",
+              "value": "a4c1a5126cd7dcce-FRA"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"id\": 1,\n  \"name\": \"Leanne Graham\",\n  \"username\": \"Bret\",\n  \"email\": \"Sincere@april.biz\",\n  \"address\": {\n    \"street\": \"Kulas Light\",\n    \"suite\": \"Apt. 556\",\n    \"city\": \"Gwenborough\",\n    \"zipcode\": \"92998-3874\",\n    \"geo\": {\n      \"lat\": \"-37.3159\",\n      \"lng\": \"81.1496\"\n    }\n  },\n  \"phone\": \"1-770-736-8031 x56442\",\n  \"website\": \"hildegard.org\",\n  \"company\": {\n    \"name\": \"Romaguera-Crona\",\n    \"catchPhrase\": \"Multi-layered client-server neural-net\",\n    \"bs\": \"harness real-time e-markets\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "TS-03_GonderiOlusturma",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Durum kodu 201 olmali\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n\r\npm.test(\"Gonderilen degerler yanitta ayni donmeli\", function () {\r\n    const istek = JSON.parse(pm.request.body.raw);\r\n    const yanit = pm.response.json();\r\n\r\n    pm.expect(yanit.title).to.eql(istek.title);\r\n    pm.expect(yanit.body).to.eql(istek.body);\r\n    pm.expect(yanit.userId).to.eql(istek.userId);\r\n});\r\n\r\npm.test(\"Olusturulan gonderinin ID degeri olmali\", function () {\r\n    const yanit = pm.response.json();\r\n\r\n    pm.expect(yanit.id).to.be.a(\"number\");\r\n    pm.expect(yanit.id).to.be.above(0);\r\n});\r\n\r\npm.test(\"Yanit alanlarinin veri tipleri dogru olmali\", function () {\r\n    const yanit = pm.response.json();\r\n\r\n    pm.expect(yanit.title).to.be.a(\"string\");\r\n    pm.expect(yanit.body).to.be.a(\"string\");\r\n    pm.expect(yanit.userId).to.be.a(\"number\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"API Test Odevi\",\r\n  \"body\": \"Postman ile yeni gonderi olusturma testi.\",\r\n  \"userId\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/posts",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "posts"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "TS-03_GonderiOlusturma",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"API Test Odevi\",\r\n  \"body\": \"Postman ile yeni gonderi olusturma testi.\",\r\n  \"userId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/posts",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "posts"
+              ]
+            }
+          },
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": ":status",
+              "value": "201"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 17 Oct 2026 19:29:59 GMT"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "114"
+            },
+            {
+              "key": "location",
+              "value": "https://jsonplaceholder.typicode.com/posts/101"
+            },
+            {
+              "key": "access-control-allow-credentials",
+              "value": "true"
+            },
+            {
+              "key": "access-control-expose-headers",
+              "value": "Location"
+            },
+            {
+              "key": "cache-control",
+              "value": "no-cache"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"72-S4w0o1kQ0orBmodFJo3woW7ch5U\""
+            },
+            {
+              "key": "expires",
+              "value": "-1"
+            },
+            {
+              "key": "pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "vary",
+              "value": "Origin, X-HTTP-Method-Override, Accept-Encoding"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "x-ratelimit-limit",
+              "value": "3600000"
+            },
+            {
+              "key": "x-ratelimit-remaining",
+              "value": "3599997"
+            },
+            {
+              "key": "x-ratelimit-reset",
+              "value": "1792266595"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "nel",
+              "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            },
+            {
+              "key": "report-to",
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=8pIdXlyjoh36ZWc9Cd4H4ZJRGz3KZCiQWTS%2BzE1Xrh7sJz1PkZQUikZxbKaoKQerRr9iK79%2FeJksM94btgoMh16DEs1t4wYqwx%2FhW%2FQ6T887BHVrNb8mm8CtqOuWZTfLbgUVicWdTPs0EKI6DxN2otVxe7Ty8yxD8BDQ\"}]}"
+            },
+            {
+              "key": "server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "cf-ray",
+              "value": "a4c1b7164f831209-FRA"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"title\": \"API Test Odevi\",\n  \"body\": \"Postman ile yeni gonderi olusturma testi.\",\n  \"userId\": 1,\n  \"id\": 101\n}"
+        }
+      ]
+    },
+    {
+      "name": "TS-04_GonderiBasliginiGuncelleme",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Durum kodu 200 olmali\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Gonderi ID degeri 1 olmali\", function () {\r\n    pm.expect(pm.response.json().id).to.eql(1);\r\n});\r\n\r\npm.test(\"Baslik gonderilen degerle eslesmeli\", function () {\r\n    const istek = JSON.parse(pm.request.body.raw);\r\n    const yanit = pm.response.json();\r\n\r\n    pm.expect(yanit.title).to.eql(istek.title);\r\n});\r\n\r\npm.test(\"Diger alanlar mevcut degerlerini korumali\", function () {\r\n    const yanit = pm.response.json();\r\n\r\n    pm.expect(yanit.userId).to.eql(1);\r\n    pm.expect(yanit.body).to.eql(\r\n        \"quia et suscipit\\nsuscipit recusandae consequuntur expedita et cum\\nreprehenderit molestiae ut ut quas totam\\nnostrum rerum est autem sunt rem eveniet architecto\"\r\n    );\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"Guncellenen Gonderi Basligi\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/posts/1",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "posts",
+            "1"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "TS-04_GonderiBasliginiGuncelleme",
+          "originalRequest": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Guncellenen Gonderi Basligi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/posts/1",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "posts",
+                "1"
+              ]
+            }
+          },
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": ":status",
+              "value": "200"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 17 Oct 2026 19:38:19 GMT"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "access-control-allow-credentials",
+              "value": "true"
+            },
+            {
+              "key": "cache-control",
+              "value": "no-cache"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"f5-naAZnEsWabpAXnGyq1oTlLTXEEk\""
+            },
+            {
+              "key": "expires",
+              "value": "-1"
+            },
+            {
+              "key": "pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "vary",
+              "value": "Origin, Accept-Encoding"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "x-ratelimit-limit",
+              "value": "3600000"
+            },
+            {
+              "key": "x-ratelimit-remaining",
+              "value": "3599996"
+            },
+            {
+              "key": "x-ratelimit-reset",
+              "value": "1792266595"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "nel",
+              "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            },
+            {
+              "key": "report-to",
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=sE68fhE%2BknElyu5nzOaZbRN5xx2HDiGeJy0IyabMqsXJdfnU0qu6FcukSG5XGgnWZDQpsqCj7kgx36GV%2Bn6xrj3aD%2FaRZLN7Vxe3b9uvGqjhapfqXPn1yT6MyuKaFUQFyyW7Y5UxLuG0eG%2F7wuAeXrdT3%2FJqJuA2Hqu0\"}]}"
+            },
+            {
+              "key": "content-encoding",
+              "value": "br"
+            },
+            {
+              "key": "server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "cf-ray",
+              "value": "a4c1c34e7d2fdbef-FRA"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"userId\": 1,\n  \"id\": 1,\n  \"title\": \"Guncellenen Gonderi Basligi\",\n  \"body\": \"quia et suscipit\\nsuscipit recusandae consequuntur expedita et cum\\nreprehenderit molestiae ut ut quas totam\\nnostrum rerum est autem sunt rem eveniet architecto\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "TS-05_GonderiSilme",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Durum kodu 200 olmali\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Yanit bos bir JSON nesnesi olmali\", function () {\r\n    pm.expect(pm.response.json()).to.deep.eql({});\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/posts/1",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "posts",
+            "1"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "TS-05_GonderiSilme",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/posts/1",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "posts",
+                "1"
+              ]
+            }
+          },
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": ":status",
+              "value": "200"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 17 Oct 2026 19:39:26 GMT"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "2"
+            },
+            {
+              "key": "access-control-allow-credentials",
+              "value": "true"
+            },
+            {
+              "key": "cache-control",
+              "value": "no-cache"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC8\""
+            },
+            {
+              "key": "expires",
+              "value": "-1"
+            },
+            {
+              "key": "pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "vary",
+              "value": "Origin, Accept-Encoding"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "x-ratelimit-limit",
+              "value": "3600000"
+            },
+            {
+              "key": "x-ratelimit-remaining",
+              "value": "3599995"
+            },
+            {
+              "key": "x-ratelimit-reset",
+              "value": "1792266595"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "nel",
+              "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            },
+            {
+              "key": "report-to",
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=1%2FJd24xjiYpyqeYHKuEiGztp2IKst9KgAd95oq4pokzjL1wWWiI2Eef25AL1zDyIbURc9hEEqqrVfL4xiej0F%2F0U2POC%2FjxHEDPzwlPi9fGfRMD43y57NBzs5W6m%2F27YR3e7fC7XFh4xkZoVne4hD5vxcw4%2FcHqAxwMN\"}]}"
+            },
+            {
+              "key": "server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "cf-ray",
+              "value": "a4c1c4f3cce1d371-FRA"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "cookie": [],
+          "body": "{}"
+        }
+      ]
+    },
+    {
+      "name": "TS-06_OlmayanKullaniciyiSorgulama",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Olmayan kullanici icin durum kodu 404 olmali\", function () {\r\n    pm.response.to.have.status(404);\r\n});\r\n\r\npm.test(\"Yanit bos bir JSON nesnesi olmali\", function () {\r\n    pm.expect(pm.response.json()).to.deep.eql({});\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/users/9999",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "users",
+            "9999"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "TS-06_OlmayanKullaniciyiSorgulama",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/users/9999",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "users",
+                "9999"
+              ]
+            }
+          },
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": ":status",
+              "value": "404"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 17 Oct 2026 19:40:55 GMT"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "2"
+            },
+            {
+              "key": "access-control-allow-credentials",
+              "value": "true"
+            },
+            {
+              "key": "cache-control",
+              "value": "max-age=43200"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC8\""
+            },
+            {
+              "key": "expires",
+              "value": "-1"
+            },
+            {
+              "key": "pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "vary",
+              "value": "Origin, Accept-Encoding"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "x-ratelimit-limit",
+              "value": "3600000"
+            },
+            {
+              "key": "x-ratelimit-remaining",
+              "value": "3599999"
+            },
+            {
+              "key": "x-ratelimit-reset",
+              "value": "1792262995"
+            },
+            {
+              "key": "nel",
+              "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "HIT"
+            },
+            {
+              "key": "report-to",
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=rxtVrX9krEvKCXzScC%2Bx3fGGszq0mcTU0m3faumQgK3DLy4Wi5hmZGqGXX4rjSyGblX%2FHtC%2BHVD%2BQaRfSG%2BHWyM0FzRGmhNRLudJiIH32zye%2FiIhFAV%2FWuL09Bjcj%2Fb8mOWIrLYq%2F8wniil6l1JynuU7mnJRF0Y1RqYI\"}]}"
+            },
+            {
+              "key": "server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "cf-ray",
+              "value": "a4c1c71cb9e6e4ba-FRA"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "cookie": [],
+          "body": "{}"
+        }
+      ]
+    },
+    {
+      "name": "TS-07_GecersizKullaniciIdSorgulama",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Sayisal olmayan ID icin durum kodu 404 olmali\", function () {\r\n    pm.response.to.have.status(404);\r\n});\r\n\r\npm.test(\"Yanit bos bir JSON nesnesi olmali\", function () {\r\n    pm.expect(pm.response.json()).to.deep.eql({});\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/users/abc",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "users",
+            "abc"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "TS-07_GecersizKullaniciIdSorgulama",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/users/abc",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "users",
+                "abc"
+              ]
+            }
+          },
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": ":status",
+              "value": "404"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 17 Oct 2026 19:41:58 GMT"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "2"
+            },
+            {
+              "key": "access-control-allow-credentials",
+              "value": "true"
+            },
+            {
+              "key": "cache-control",
+              "value": "max-age=43200"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC8\""
+            },
+            {
+              "key": "expires",
+              "value": "-1"
+            },
+            {
+              "key": "pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "vary",
+              "value": "Origin, Accept-Encoding"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "x-ratelimit-limit",
+              "value": "3600000"
+            },
+            {
+              "key": "x-ratelimit-remaining",
+              "value": "3599994"
+            },
+            {
+              "key": "x-ratelimit-reset",
+              "value": "1792266595"
+            },
+            {
+              "key": "nel",
+              "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "EXPIRED"
+            },
+            {
+              "key": "report-to",
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=DWVfY%2Fzb8V1nGir02OjokyhqfG4Y1ZvFHXKBhVnTBsQ4FCpZXHblKgpUmEfyjq3MP3eMzMGzaH8IDMpHwYeNMuJCVrUJcxbQKNbvmnPjREtAMg3GwxwBO%2B%2FurJvq%2BNcWBIlOBZcFXUDaFhlt6%2FWfTwpadsqYK39TEbKA\"}]}"
+            },
+            {
+              "key": "server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "cf-ray",
+              "value": "a4c1c8a909bf812f-FRA"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "cookie": [],
+          "body": "{}"
+        }
+      ]
+    },
+    {
+      "name": "TS-08_BozukJsonIleGonderiOlusturma",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Bozuk JSON icin durum kodu 400 olmali\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Yanitta sunucu hata ayrintilari bulunmamali\", function () {\r\n    const yanit = pm.response.text();\r\n\r\n    pm.expect(yanit).not.to.match(\r\n        /SyntaxError|node_modules|\\/app\\/|at JSON\\.parse/i\r\n    );\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"API Test Odevi\"\r\n  \"body\": \"Bozuk JSON testi\",\r\n  \"userId\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/posts",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "posts"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "TS-08_BozukJsonIleGonderiOlusturma",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"API Test Odevi\"\r\n  \"body\": \"Bozuk JSON testi\",\r\n  \"userId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/posts",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "posts"
+              ]
+            }
+          },
+          "_postman_previewlanguage": "html",
+          "header": [
+            {
+              "key": ":status",
+              "value": "500"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 17 Oct 2026 19:43:06 GMT"
+            },
+            {
+              "key": "content-type",
+              "value": "text/html; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "716"
+            },
+            {
+              "key": "access-control-allow-credentials",
+              "value": "true"
+            },
+            {
+              "key": "cache-control",
+              "value": "no-cache"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"2cc-hXdNvsrvW7LR+SclBTJea3VzlSc\""
+            },
+            {
+              "key": "expires",
+              "value": "-1"
+            },
+            {
+              "key": "pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "vary",
+              "value": "Origin, X-HTTP-Method-Override, Accept-Encoding"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "x-ratelimit-limit",
+              "value": "3600000"
+            },
+            {
+              "key": "x-ratelimit-remaining",
+              "value": "3599993"
+            },
+            {
+              "key": "x-ratelimit-reset",
+              "value": "1792266595"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "nel",
+              "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            },
+            {
+              "key": "report-to",
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=ABFlxk%2BwUTXDPu92itTaYie2cAQ4GRy5vcDgttNpGrfKvRjF9H9RcI%2BMPVjaw4M3iAkxY6E%2BfMWsEPAeaAmNiXiIVBQkYW7LWv1Ks4hZueTelxNfl2t8RAHts0N0n%2F9oxFqqJzP8PzGiKTSr8YcvXTztH1MtxRyzcACM\"}]}"
+            },
+            {
+              "key": "server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "cf-ray",
+              "value": "a4c1ca4cea5fa6a2-FRA"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "cookie": [],
+          "body": "SyntaxError: Expected ',' or '}' after property value in JSON at position 34 (line 3 column 3)\n    at JSON.parse (<anonymous>)\n    at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)\n    at /app/node_modules/body-parser/lib/read.js:121:18\n    at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)\n    at done (/app/node_modules/body-parser/node_modules/raw-body/index.js:213:7)\n    at IncomingMessage.onEnd (/app/node_modules/body-parser/node_modules/raw-body/index.js:273:7)\n    at IncomingMessage.emit (node:events:514:28)\n    at endReadableNT (node:internal/streams/readable:1764:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)"
+        }
+      ]
+    },
+    {
+      "name": "TS-09_KullaniciyaGoreGonderileriFiltreleme",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Durum kodu 200 olmali\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Yanit 10 gonderi iceren bir liste olmali\", function () {\r\n    const gonderiler = pm.response.json();\r\n\r\n    pm.expect(gonderiler).to.be.an(\"array\");\r\n    pm.expect(gonderiler).to.have.lengthOf(10);\r\n});\r\n\r\npm.test(\"Tum gonderiler istenen kullaniciya ait olmali\", function () {\r\n    const gonderiler = pm.response.json();\r\n    const userId = Number(pm.request.url.query.get(\"userId\"));\r\n\r\n    pm.expect(gonderiler).to.be.an(\"array\").that.is.not.empty;\r\n\r\n    gonderiler.forEach(function (gonderi) {\r\n        pm.expect(gonderi.userId).to.eql(userId);\r\n    });\r\n});\r\n\r\npm.test(\"Gonderi alanlarinin veri tipleri dogru olmali\", function () {\r\n    const gonderiler = pm.response.json();\r\n    pm.expect(gonderiler).to.be.an(\"array\").that.is.not.empty;\r\n\r\n    gonderiler.forEach(function (gonderi) {\r\n        pm.expect(gonderi.id).to.be.a(\"number\");\r\n        pm.expect(gonderi.userId).to.be.a(\"number\");\r\n        pm.expect(gonderi.title).to.be.a(\"string\");\r\n        pm.expect(gonderi.body).to.be.a(\"string\");\r\n    });\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/posts?userId=1",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "posts"
+          ],
+          "query": [
+            {
+              "key": "userId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "TS-09_KullaniciyaGoreGonderileriFiltreleme",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/posts?userId=1",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "posts"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": ":status",
+              "value": "200"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 17 Oct 2026 19:45:23 GMT"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "access-control-allow-credentials",
+              "value": "true"
+            },
+            {
+              "key": "cache-control",
+              "value": "max-age=43200"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"aa6-j2NSH739l9uq40OywFMn7Y0C/iY\""
+            },
+            {
+              "key": "expires",
+              "value": "-1"
+            },
+            {
+              "key": "pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "vary",
+              "value": "Origin, Accept-Encoding"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "x-ratelimit-limit",
+              "value": "3600000"
+            },
+            {
+              "key": "x-ratelimit-remaining",
+              "value": "3599997"
+            },
+            {
+              "key": "x-ratelimit-reset",
+              "value": "1790812826"
+            },
+            {
+              "key": "age",
+              "value": "24622"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "HIT"
+            },
+            {
+              "key": "nel",
+              "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            },
+            {
+              "key": "report-to",
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=v6k7uZrShaqlgtQKnww7a2qwS4J1h87aA7klxEVBTvTON0S%2FC5Ic7q%2Bm1sVlNga1vt9n3pXZYeSwuf9AupkzPU8oGEzanxbS%2BJwwMM67kA8sBnFX4Byn4AGhCNKJWOfdI%2Bsx8%2BQLiSywY6xECywYNrxDVvBfUk1E4aDO\"}]}"
+            },
+            {
+              "key": "server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "cf-ray",
+              "value": "a4c1cda98d8cd27c-FRA"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n  {\n    \"userId\": 1,\n    \"id\": 1,\n    \"title\": \"sunt aut facere repellat provident occaecati excepturi optio reprehenderit\",\n    \"body\": \"quia et suscipit\\nsuscipit recusandae consequuntur expedita et cum\\nreprehenderit molestiae ut ut quas totam\\nnostrum rerum est autem sunt rem eveniet architecto\"\n  },\n  {\n    \"userId\": 1,\n    \"id\": 2,\n    \"title\": \"qui est esse\",\n    \"body\": \"est rerum tempore vitae\\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\\nqui aperiam non debitis possimus qui neque nisi nulla\"\n  },\n  {\n    \"userId\": 1,\n    \"id\": 3,\n    \"title\": \"ea molestias quasi exercitationem repellat qui ipsa sit aut\",\n    \"body\": \"et iusto sed quo iure\\nvoluptatem occaecati omnis eligendi aut ad\\nvoluptatem doloribus vel accusantium quis pariatur\\nmolestiae porro eius odio et labore et velit aut\"\n  },\n  {\n    \"userId\": 1,\n    \"id\": 4,\n    \"title\": \"eum et est occaecati\",\n    \"body\": \"ullam et saepe reiciendis voluptatem adipisci\\nsit amet autem assumenda provident rerum culpa\\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\\nquis sunt voluptatem rerum illo velit\"\n  },\n  {\n    \"userId\": 1,\n    \"id\": 5,\n    \"title\": \"nesciunt quas odio\",\n    \"body\": \"repudiandae veniam quaerat sunt sed\\nalias aut fugiat sit autem sed est\\nvoluptatem omnis possimus esse voluptatibus quis\\nest aut tenetur dolor neque\"\n  },\n  {\n    \"userId\": 1,\n    \"id\": 6,\n    \"title\": \"dolorem eum magni eos aperiam quia\",\n    \"body\": \"ut aspernatur corporis harum nihil quis provident sequi\\nmollitia nobis aliquid molestiae\\nperspiciatis et ea nemo ab reprehenderit accusantium quas\\nvoluptate dolores velit et doloremque molestiae\"\n  },\n  {\n    \"userId\": 1,\n    \"id\": 7,\n    \"title\": \"magnam facilis autem\",\n    \"body\": \"dolore placeat quibusdam ea quo vitae\\nmagni quis enim qui quis quo nemo aut saepe\\nquidem repellat excepturi ut quia\\nsunt ut sequi eos ea sed quas\"\n  },\n  {\n    \"userId\": 1,\n    \"id\": 8,\n    \"title\": \"dolorem dolore est ipsam\",\n    \"body\": \"dignissimos aperiam dolorem qui eum\\nfacilis quibusdam animi sint suscipit qui sint possimus cum\\nquaerat magni maiores excepturi\\nipsam ut commodi dolor voluptatum modi aut vitae\"\n  },\n  {\n    \"userId\": 1,\n    \"id\": 9,\n    \"title\": \"nesciunt iure omnis dolorem tempora et accusantium\",\n    \"body\": \"consectetur animi nesciunt iure dolore\\nenim quia ad\\nveniam autem ut quam aut nobis\\net est aut quod aut provident voluptas autem voluptas\"\n  },\n  {\n    \"userId\": 1,\n    \"id\": 10,\n    \"title\": \"optio molestias id quia eum\",\n    \"body\": \"quo et expedita modi cum officia vel magni\\ndoloribus qui repudiandae\\nvero nisi sit\\nquos veniam quod sed accusamus veritatis error\"\n  }\n]"
+        }
+      ]
+    },
+    {
+      "name": "TS-10_GonderiyiPutIleGuncelleme",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Durum kodu 200 olmali\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Gonderi ID degeri 1 olmali\", function () {\r\n    pm.expect(pm.response.json().id).to.eql(1);\r\n});\r\n\r\npm.test(\"Tum alanlar gonderilen degerlerle eslesmeli\", function () {\r\n    const istek = JSON.parse(pm.request.body.raw);\r\n    const yanit = pm.response.json();\r\n\r\n    pm.expect(yanit.id).to.eql(istek.id);\r\n    pm.expect(yanit.title).to.eql(istek.title);\r\n    pm.expect(yanit.body).to.eql(istek.body);\r\n    pm.expect(yanit.userId).to.eql(istek.userId);\r\n});\r\n\r\npm.test(\"Yanit alanlarinin veri tipleri dogru olmali\", function () {\r\n    const yanit = pm.response.json();\r\n\r\n    pm.expect(yanit.id).to.be.a(\"number\");\r\n    pm.expect(yanit.title).to.be.a(\"string\");\r\n    pm.expect(yanit.body).to.be.a(\"string\");\r\n    pm.expect(yanit.userId).to.be.a(\"number\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"id\": 1,\r\n  \"title\": \"PUT ile Guncellenen Baslik\",\r\n  \"body\": \"Gonderinin tum alanlari yeniden gonderildi.\",\r\n  \"userId\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/posts/1",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "posts",
+            "1"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "TS-10_GonderiyiPutIleGuncelleme",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"id\": 1,\r\n  \"title\": \"PUT ile Guncellenen Baslik\",\r\n  \"body\": \"Gonderinin tum alanlari yeniden gonderildi.\",\r\n  \"userId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/posts/1",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "posts",
+                "1"
+              ]
+            }
+          },
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": ":status",
+              "value": "200"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 17 Oct 2026 19:46:27 GMT"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "access-control-allow-credentials",
+              "value": "true"
+            },
+            {
+              "key": "cache-control",
+              "value": "no-cache"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"7e-vTRLbQXXSFQG2mJcBWIGhRnZb8M\""
+            },
+            {
+              "key": "expires",
+              "value": "-1"
+            },
+            {
+              "key": "pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "vary",
+              "value": "Origin, Accept-Encoding"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "x-ratelimit-limit",
+              "value": "3600000"
+            },
+            {
+              "key": "x-ratelimit-remaining",
+              "value": "3599992"
+            },
+            {
+              "key": "x-ratelimit-reset",
+              "value": "1792266595"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "nel",
+              "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            },
+            {
+              "key": "report-to",
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=kwMCH2wRGc7a%2B8lfZWhK%2FiBenGQAscksxpFEq0NNPHgQBtzynglC%2FCrp3VY9qlMrBuNy%2FhgSfgV6W4uYEn%2F2wRQeIgAUb7VIh5zt3YRya2X%2FIVopSucHv8a6zF36XuA0bH57n%2Fbph0GWL5uOtAfwdTb7f8%2Fij1mMorzB\"}]}"
+            },
+            {
+              "key": "content-encoding",
+              "value": "br"
+            },
+            {
+              "key": "server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "cf-ray",
+              "value": "a4c1cf379babdca2-FRA"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"id\": 1,\n  \"title\": \"PUT ile Guncellenen Baslik\",\n  \"body\": \"Gonderinin tum alanlari yeniden gonderildi.\",\n  \"userId\": 1\n}"
+        }
+      ]
+    },
+    {
+      "name": "TS-11_BosJsonIleGonderiOlusturma",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Gozlenen servis davranisi: durum kodu 201\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n\r\npm.test(\"Gozlenen servis davranisi: yalnizca sayisal ID donmeli\", function () {\r\n    const yanit = pm.response.json();\r\n\r\n    pm.expect(yanit).to.be.an(\"object\");\r\n    pm.expect(yanit).to.have.all.keys(\"id\");\r\n    pm.expect(yanit.id).to.be.a(\"number\").and.above(0);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/posts",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "posts"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "TS-11_BosJsonIleGonderiOlusturma",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/posts",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "posts"
+              ]
+            }
+          },
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": ":status",
+              "value": "201"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 17 Oct 2026 19:47:16 GMT"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "15"
+            },
+            {
+              "key": "location",
+              "value": "https://jsonplaceholder.typicode.com/posts/101"
+            },
+            {
+              "key": "access-control-allow-credentials",
+              "value": "true"
+            },
+            {
+              "key": "access-control-expose-headers",
+              "value": "Location"
+            },
+            {
+              "key": "cache-control",
+              "value": "no-cache"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"f-4jjw4Y8q22Yv1PV9m28FczJgjzk\""
+            },
+            {
+              "key": "expires",
+              "value": "-1"
+            },
+            {
+              "key": "pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "vary",
+              "value": "Origin, X-HTTP-Method-Override, Accept-Encoding"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "x-ratelimit-limit",
+              "value": "3600000"
+            },
+            {
+              "key": "x-ratelimit-remaining",
+              "value": "3599991"
+            },
+            {
+              "key": "x-ratelimit-reset",
+              "value": "1792266595"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "nel",
+              "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            },
+            {
+              "key": "report-to",
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=25kI7HHhlewjBotWD9NfrLF2QVNqDLKv5As0tNRuSGcZ%2F3fe6JTcgcgzsrljSys0kkBzFw5hbWa%2B2NeIA4IA7LZ9TvpSIjp6CX7GeC3xrvq0zBQ0e0mPJxffEeYbw%2B6NPecvsz3d8faYQb2qiG1Kb70gXCBPk%2B6n%2F7G6\"}]}"
+            },
+            {
+              "key": "server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "cf-ray",
+              "value": "a4c1d06ae9fbdca2-FRA"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"id\": 101\n}"
+        }
+      ]
+    },
+    {
+      "name": "TS-12_GonderiyeAitYorumlariGetirme",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Durum kodu 200 olmali\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Yanit bos olmayan bir liste olmali\", function () {\r\n    const yorumlar = pm.response.json();\r\n    pm.expect(yorumlar).to.be.an(\"array\").that.is.not.empty;\r\n});\r\n\r\npm.test(\"Tum yorumlar 1 numarali gonderiye ait olmali\", function () {\r\n    const yorumlar = pm.response.json();\r\n    pm.expect(yorumlar).to.be.an(\"array\").that.is.not.empty;\r\n\r\n    yorumlar.forEach(function (yorum) {\r\n        pm.expect(yorum.postId).to.eql(1);\r\n    });\r\n});\r\n\r\npm.test(\"Tum yorumlarin alanlari ve veri tipleri dogru olmali\", function () {\r\n    const yorumlar = pm.response.json();\r\n    pm.expect(yorumlar).to.be.an(\"array\").that.is.not.empty;\r\n\r\n    yorumlar.forEach(function (yorum) {\r\n        pm.expect(yorum.id).to.be.a(\"number\");\r\n        pm.expect(yorum.name).to.be.a(\"string\");\r\n        pm.expect(yorum.email).to.be.a(\"string\");\r\n        pm.expect(yorum.body).to.be.a(\"string\");\r\n    });\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/posts/1/comments",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "posts",
+            "1",
+            "comments"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "TS-12_GonderiyeAitYorumlariGetirme",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/posts/1/comments",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "posts",
+                "1",
+                "comments"
+              ]
+            }
+          },
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": ":status",
+              "value": "200"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 17 Oct 2026 19:05:54 GMT"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "access-control-allow-credentials",
+              "value": "true"
+            },
+            {
+              "key": "cache-control",
+              "value": "max-age=43200"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"5e6-4bSPS5tq8F8ZDeFJULWh6upjp7U\""
+            },
+            {
+              "key": "expires",
+              "value": "-1"
+            },
+            {
+              "key": "pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "vary",
+              "value": "Origin, Accept-Encoding"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "x-ratelimit-limit",
+              "value": "3600000"
+            },
+            {
+              "key": "x-ratelimit-remaining",
+              "value": "3599995"
+            },
+            {
+              "key": "x-ratelimit-reset",
+              "value": "1790812826"
+            },
+            {
+              "key": "age",
+              "value": "14503"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "HIT"
+            },
+            {
+              "key": "nel",
+              "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            },
+            {
+              "key": "report-to",
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=n%2F9OayhXi6GPd1mhGcq1B8xNR%2FUY1vMixuJPLvORdO9wKYh%2FlXv5gYak88r%2F4%2BwJBXIdjk1BtF0%2BYMkxzSBgE5ZsQN6zZOpSHEnmGhmBAKUiud7i4OZGvO%2Fg%2Fw%2Bt2zBbGtpx6omRK8ENDqQ1EbFAJYtcdC0QvLxhXA6l\"}]}"
+            },
+            {
+              "key": "server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "cf-ray",
+              "value": "a4c193d47ba85f18-FRA"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n  {\n    \"postId\": 1,\n    \"id\": 1,\n    \"name\": \"id labore ex et quam laborum\",\n    \"email\": \"Eliseo@gardner.biz\",\n    \"body\": \"laudantium enim quasi est quidem magnam voluptate ipsam eos\\ntempora quo necessitatibus\\ndolor quam autem quasi\\nreiciendis et nam sapiente accusantium\"\n  },\n  {\n    \"postId\": 1,\n    \"id\": 2,\n    \"name\": \"quo vero reiciendis velit similique earum\",\n    \"email\": \"Jayne_Kuhic@sydney.com\",\n    \"body\": \"est natus enim nihil est dolore omnis voluptatem numquam\\net omnis occaecati quod ullam at\\nvoluptatem error expedita pariatur\\nnihil sint nostrum voluptatem reiciendis et\"\n  },\n  {\n    \"postId\": 1,\n    \"id\": 3,\n    \"name\": \"odio adipisci rerum aut animi\",\n    \"email\": \"Nikita@garfield.biz\",\n    \"body\": \"quia molestiae reprehenderit quasi aspernatur\\naut expedita occaecati aliquam eveniet laudantium\\nomnis quibusdam delectus saepe quia accusamus maiores nam est\\ncum et ducimus et vero voluptates excepturi deleniti ratione\"\n  },\n  {\n    \"postId\": 1,\n    \"id\": 4,\n    \"name\": \"alias odio sit\",\n    \"email\": \"Lew@alysha.tv\",\n    \"body\": \"non et atque\\noccaecati deserunt quas accusantium unde odit nobis qui voluptatem\\nquia voluptas consequuntur itaque dolor\\net qui rerum deleniti ut occaecati\"\n  },\n  {\n    \"postId\": 1,\n    \"id\": 5,\n    \"name\": \"vero eaque aliquid doloribus et culpa\",\n    \"email\": \"Hayden@althea.biz\",\n    \"body\": \"harum non quasi et ratione\\ntempore iure ex voluptates in ratione\\nharum architecto fugit inventore cupiditate\\nvoluptates magni quo et\"\n  }\n]"
+        }
+      ]
+    }
+  ]
+}
